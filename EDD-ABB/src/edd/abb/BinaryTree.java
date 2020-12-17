@@ -314,4 +314,21 @@ public class BinaryTree <E extends Comparable<E>>  {
             }
         }return suma;
     }
+    public int maxPar(){
+        if(root == null) return 0;
+        return maxPar(root);
+    }
+   
+    private int maxPar(Node<E> p){
+        if(p == null) return 0;
+        int x = 0;
+        int y = 0;
+        int valor = 0;
+        if((Integer)p.element%2 == 0){
+            valor = (Integer)p.element;
+        }
+        x = Math.max(valor, maxPar(p.left));
+        y = Math.max(valor, maxPar(p.right));
+        return Math.max(x, y);
+    }
 }
