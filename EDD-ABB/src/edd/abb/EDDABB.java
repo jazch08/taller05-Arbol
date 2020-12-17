@@ -27,9 +27,12 @@ public class EDDABB {
         c.add(15);
         c.add(18);
         System.out.println(c.inOrden());
+        System.out.println("Anchura: "+c.anchura());
         BinaryTree<Integer> mirror = c.espejo();
         System.out.println(mirror.inOrden());
         System.out.println(c.isMirror(mirror));
+        
+        
     }
     
 }

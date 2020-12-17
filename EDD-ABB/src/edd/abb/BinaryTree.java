@@ -123,12 +123,30 @@ public class BinaryTree <E extends Comparable<E>>  {
         return retorno;
     }
     
+    private int level(Node padre, Node p, int level){
+        if (padre == null){
+            return -1;
+        }
+
+        if (root == p){
+            return level;
+        }
+ 
+        int izq = level(padre.left, p, level+1);
+ 
+        if (izq != -1){
+            return izq;
+        }
+ 
+        return level(padre.right, p, level+1);
+    }
           
     public boolean contains(E element){
         if (element == null )
             return false;
         return contains(root, element);
     }
+    
     private boolean contains(Node<E> p, E element){
         if (p == null)
             return false;
@@ -281,4 +299,22 @@ public class BinaryTree <E extends Comparable<E>>  {
         if (nivelActual == nivel) return (Integer) p.element;
         return sumaNivel(p.right, nivel, nivelActual+1)+sumaNivel(p.left, nivel, nivelActual+1);
     }
+    
+    private Node<E> obtain(Node<E> p, E element){
+        if (p == null)
+            return null;
+        if(element.compareTo(p.element) == 0){
+            return p;
+        }
+        if(element.compareTo(p.element) > 0)
+            return obtain(p.right, element);
+        return obtain(p.left, element);
+    }
+    
+    public int distance(E nodo1, E nodo2){
+        Node<E> p = obtain(root,nodo1);
+        Node<E> n = obtain(root,nodo2);
+        return 0;
+    }
+    
 }
