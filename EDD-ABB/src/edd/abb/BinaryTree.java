@@ -265,20 +265,6 @@ public class BinaryTree <E extends Comparable<E>>  {
         return p;
     }
     
-    public boolean isMirror(BinaryTree<E> arbol){
-        return isMirror(root,arbol.root);
-    }
-    
-    private boolean isMirror(Node<E> p, Node<E> n){
-        if(p==null) return n==null;
-        if(n==null) return false;
-        System.out.println("P: "+p.element+"   N: "+n.element);
-        if (!p.element.equals(n.element)) return false;
-        return isMirror(p.left,n.left) && isMirror(p.right,n.right);
-        
-    }
-    
-    
     public boolean equals(BinaryTree <E> arbol){
         return equals(root,arbol.root);
     }
@@ -311,10 +297,79 @@ public class BinaryTree <E extends Comparable<E>>  {
         return obtain(p.left, element);
     }
     
+    
+   
+    //PRIMER TEMA
+    public int maxPar(){
+        if(root == null) return 0;
+        return maxPar(root);
+    }
+   
+    private int maxPar(Node<E> p){
+        if(p == null) return 0;
+        int x = 0;
+        int y = 0;
+        int valor = 0;
+        if((Integer)p.element%2 == 0){
+            valor = (Integer)p.element;
+        }
+        x = Math.max(valor, maxPar(p.left));
+        y = Math.max(valor, maxPar(p.right));
+        return Math.max(x, y);
+    }
+    
+    //SEGUNDO TEMA
+    public int sumaPar(){
+        return sumaPar(root);
+    }
+    
+    private int sumaPar(Node<E> p){
+        if(p== null){
+            return 0; 
+        }
+        Queue<Node<E>> cola = new LinkedList();
+        Queue<Node<E>> cola2 = new LinkedList();
+        cola.add(p);
+        cola2.add(p);
+        while (cola.peek() != null){
+            p = cola.poll();
+            if (p.left != null) {
+                cola.add(p.left);
+                cola2.add(p.left);
+            }
+            if (p.right != null) {
+                cola.add(p.right);
+                cola2.add(p.right);
+            }
+            
+        }
+        int suma=0;
+        while (cola2.peek() != null){
+            p=cola2.poll();
+            if((Integer)p.element%2==0){
+                suma+=(Integer)p.element;
+            }
+        }return suma;
+    }
+    
+    //TERCER TEMA
+    public boolean isMirror(BinaryTree<E> arbol){
+        return isMirror(root,arbol.root);
+    }
+    
+    private boolean isMirror(Node<E> p, Node<E> n){
+        if(p==null) return n==null;
+        if(n==null) return false;
+        System.out.println("P: "+p.element+"   N: "+n.element);
+        if (!p.element.equals(n.element)) return false;
+        return isMirror(p.left,n.left) && isMirror(p.right,n.right);
+        
+    }
+    
+    //CUARTO TEMA
     public int distance(E nodo1, E nodo2){
         Node<E> p = obtain(root,nodo1);
         Node<E> n = obtain(root,nodo2);
         return 0;
     }
-    
 }
