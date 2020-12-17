@@ -281,4 +281,64 @@ public class BinaryTree <E extends Comparable<E>>  {
         if (nivelActual == nivel) return (Integer) p.element;
         return sumaNivel(p.right, nivel, nivelActual+1)+sumaNivel(p.left, nivel, nivelActual+1);
     }
+    
+    public int maxPar(){
+        return maxPar(root);
+    }
+    
+    private int maxPar(Node<E> p){
+        if(p== null){
+            return 0; 
+        }
+        Queue<Node<E>> cola = new LinkedList();
+        ArrayList<Integer> numeros= new ArrayList();
+        cola.add(p);
+        numeros.add((Integer)p.element);
+        while (cola.peek() != null){
+            p = cola.poll();
+            if (p.left != null) {
+                cola.add(p.left);
+                numeros.add((Integer)p.left.element);
+            }
+            if (p.right != null) {
+                cola.add(p.right);
+                numeros.add((Integer)p.right.element);
+            }
+        }
+        int mayor=Collections.max(numeros);
+        return mayor ;
+    } 
+    
+    public int sumaPar(){
+        return sumaPar(root);
+    }
+    
+    private int sumaPar(Node<E> p){
+        if(p== null){
+            return 0; 
+        }
+        Queue<Node<E>> cola = new LinkedList();
+        Queue<Node<E>> cola2 = new LinkedList();
+        cola.add(p);
+        cola2.add(p);
+        while (cola.peek() != null){
+            p = cola.poll();
+            if (p.left != null) {
+                cola.add(p.left);
+                cola2.add(p.left);
+            }
+            if (p.right != null) {
+                cola.add(p.right);
+                cola2.add(p.right);
+            }
+            
+        }
+        int suma=0;
+        while (cola2.peek() != null){
+            p=cola2.poll();
+            if((Integer)p.element%2==0){
+                suma+=(Integer)p.element;
+            }
+        }return suma;
+    }
 }
