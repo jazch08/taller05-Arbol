@@ -282,33 +282,6 @@ public class BinaryTree <E extends Comparable<E>>  {
         return sumaNivel(p.right, nivel, nivelActual+1)+sumaNivel(p.left, nivel, nivelActual+1);
     }
     
-    public int maxPar(){
-        return maxPar(root);
-    }
-    
-    private int maxPar(Node<E> p){
-        if(p== null){
-            return 0; 
-        }
-        Queue<Node<E>> cola = new LinkedList();
-        ArrayList<Integer> numeros= new ArrayList();
-        cola.add(p);
-        numeros.add((Integer)p.element);
-        while (cola.peek() != null){
-            p = cola.poll();
-            if (p.left != null) {
-                cola.add(p.left);
-                numeros.add((Integer)p.left.element);
-            }
-            if (p.right != null) {
-                cola.add(p.right);
-                numeros.add((Integer)p.right.element);
-            }
-        }
-        int mayor=Collections.max(numeros);
-        return mayor ;
-    } 
-    
     public int sumaPar(){
         return sumaPar(root);
     }
