@@ -124,18 +124,17 @@ public class BinaryTree <E extends Comparable<E>>  {
     }
     
     private int level(Node padre, Node p, int level){
-        System.out.println(padre+"  "+p);
         if (padre == null){
-            return 0;
+            return -1;
         }
 
-        if (root == p){
+        if (padre == p){
             return level;
         }
  
         int izq = level(padre.left, p, level+1);
  
-        if (izq != 0){
+        if (izq != -1){
             return izq;
         }
  
@@ -370,40 +369,28 @@ public class BinaryTree <E extends Comparable<E>>  {
     public int distance(E nodo1, E nodo2){
         Node<E> p = obtain(root,nodo1);
         Node<E> n = obtain(root,nodo2);
-        Node<E> parentCommon = parentsCommon(p,n);
-        System.out.println("Padre: "+parentCommon);
-        int distancia1 = level(root,p,0);
-        System.out.println("-------------------------------------------");
-        int distancia2 = level(root,n,0);
+        Node<E> pC = parentCommon(root,p,n);
+        int distancia1 = level(pC,p,0);
+        int distancia2 = level(pC,n,0);
         System.out.println("distancia1: "+distancia1+"    distancia2: "+distancia2);
         return distancia1+distancia2;
     }
     
-    private Node<E> parentsCommon(Node<E> a, Node<E>b){
-        ArrayList<Node<E>> parentA = new ArrayList<Node<E>>();
-        parentA.add(a);
-        Node<E> temp = a;
-        while(temp.parent!=null){
-            parentA.add(temp.getParent());
-            temp = temp.getParent();
+    private Node<E> parentCommon(Node<E> root,Node<E> p, Node<E>q){
+        if(root == null){
+            return null;
         }
-        System.out.println("Fin1");
-        ArrayList<Node<E>> parentB = new ArrayList<Node<E>>();
-        parentB.add(b);
-        temp = b;
-        while(temp.parent!=null){
-            parentB.add(temp.getParent());
-            temp = temp.getParent();
+        if(root==p || root==q){
+            return root;
         }
-        System.out.println("Fin2");
-        ArrayList<Node<E>> parentCommon = new ArrayList<Node<E>>();
-        
-        for(Node<E> c : parentA){
-            if(parentB.contains(c)){
-                parentCommon.add(c);
-            }
+        Node<E> izq = parentCommon(root.left,p,q);
+        Node<E> der = parentCommon(root.right,p,q);
+        if(izq!=null && der!=null){
+            return root;
         }
-        return parentCommon.get(0);
+        else{
+            return izq!=null?izq:der;
+        }
     }
     
 }

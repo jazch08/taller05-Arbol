@@ -34,7 +34,7 @@ public class EDDABB {
         System.out.println(c.sumaPar());
         System.out.println(c.maxPar());
         
-        System.out.println(c.distance(1, 7));
+        System.out.println(c.distance(1, 18));
     }
     
 }
