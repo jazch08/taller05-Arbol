@@ -29,11 +29,12 @@ public class EDDABB {
         System.out.println(c.inOrden());
         
         BinaryTree<Integer> mirror = c.espejo();
-        
         System.out.println(mirror.inOrden());
         System.out.println(c.isMirror(mirror));
         System.out.println(c.sumaPar());
         System.out.println(c.maxPar());
+        
+        System.out.println(c.distance(1, 7));
     }
     
 }

@@ -124,8 +124,9 @@ public class BinaryTree <E extends Comparable<E>>  {
     }
     
     private int level(Node padre, Node p, int level){
+        System.out.println(padre+"  "+p);
         if (padre == null){
-            return -1;
+            return 0;
         }
 
         if (root == p){
@@ -134,7 +135,7 @@ public class BinaryTree <E extends Comparable<E>>  {
  
         int izq = level(padre.left, p, level+1);
  
-        if (izq != -1){
+        if (izq != 0){
             return izq;
         }
  
@@ -287,12 +288,12 @@ public class BinaryTree <E extends Comparable<E>>  {
     }
     
     private Node<E> obtain(Node<E> p, E element){
-        if (p == null)
+        if (p == null )
             return null;
         if(element.compareTo(p.element) == 0){
             return p;
         }
-        if(element.compareTo(p.element) > 0)
+        if(element.compareTo(p.element) < 0)
             return obtain(p.right, element);
         return obtain(p.left, element);
     }
@@ -360,7 +361,6 @@ public class BinaryTree <E extends Comparable<E>>  {
     private boolean isMirror(Node<E> p, Node<E> n){
         if(p==null) return n==null;
         if(n==null) return false;
-        System.out.println("P: "+p.element+"   N: "+n.element);
         if (!p.element.equals(n.element)) return false;
         return isMirror(p.left,n.left) && isMirror(p.right,n.right);
         
@@ -370,6 +370,40 @@ public class BinaryTree <E extends Comparable<E>>  {
     public int distance(E nodo1, E nodo2){
         Node<E> p = obtain(root,nodo1);
         Node<E> n = obtain(root,nodo2);
-        return 0;
+        Node<E> parentCommon = parentsCommon(p,n);
+        System.out.println("Padre: "+parentCommon);
+        int distancia1 = level(root,p,0);
+        System.out.println("-------------------------------------------");
+        int distancia2 = level(root,n,0);
+        System.out.println("distancia1: "+distancia1+"    distancia2: "+distancia2);
+        return distancia1+distancia2;
     }
+    
+    private Node<E> parentsCommon(Node<E> a, Node<E>b){
+        ArrayList<Node<E>> parentA = new ArrayList<Node<E>>();
+        parentA.add(a);
+        Node<E> temp = a;
+        while(temp.parent!=null){
+            parentA.add(temp.getParent());
+            temp = temp.getParent();
+        }
+        System.out.println("Fin1");
+        ArrayList<Node<E>> parentB = new ArrayList<Node<E>>();
+        parentB.add(b);
+        temp = b;
+        while(temp.parent!=null){
+            parentB.add(temp.getParent());
+            temp = temp.getParent();
+        }
+        System.out.println("Fin2");
+        ArrayList<Node<E>> parentCommon = new ArrayList<Node<E>>();
+        
+        for(Node<E> c : parentA){
+            if(parentB.contains(c)){
+                parentCommon.add(c);
+            }
+        }
+        return parentCommon.get(0);
+    }
+    
 }
